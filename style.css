@@ -1,0 +1,505 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0d0f1d 0%, #1a1c2e 50%, #161936 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  color: #fff;
+  position: relative;
+}
+
+/* Canvas Trail Kursor */
+#cursorCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Latar Belakang & Neon */
+.bg-elements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floating-icon {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 28px;
+  animation: float 6s ease-in-out infinite;
+}
+
+.lock-1 { top: 35%; left: 23%; animation-delay: 0s; }
+.lock-2 { top: 28%; right: 28%; animation-delay: 2s; }
+.gear-1 { top: 12%; right: 35%; animation-delay: 4s; }
+.user-icon { top: 35%; right: 14%; animation-delay: 1s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(10deg); }
+}
+
+.neon-line {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+/* Container Utama */
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1300px;
+  padding: 20px;
+  z-index: 2;
+}
+
+.character-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Robot (Kiri) */
+.robot-container {
+  height: 400px;
+}
+
+.robot-wrapper {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tech-badge {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.robot-svg {
+  width: 220px;
+  height: 320px;
+  filter: drop-shadow(0 10px 20px rgba(0, 210, 255, 0.3));
+  animation: robotFloat 4s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+@keyframes robotFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* ANIMASI MUTER-MUTER ROBOT SAAT DIKLIK */
+.robot-wrapper.spinning .robot-svg {
+  animation: robotSpin 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes robotSpin {
+  0% { transform: rotate(0deg) scale(1); filter: drop-shadow(0 10px 20px rgba(0, 210, 255, 0.3)); }
+  50% { transform: rotate(180deg) scale(1.25); filter: drop-shadow(0 0 35px #00d2ff); }
+  100% { transform: rotate(360deg) scale(1); filter: drop-shadow(0 10px 20px rgba(0, 210, 255, 0.3)); }
+}
+
+.robot-antenna-orb {
+  animation: pulseGlow 1.5s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { fill: #00d2ff; filter: drop-shadow(0 0 2px #00d2ff); }
+  100% { fill: #ff007f; filter: drop-shadow(0 0 10px #ff007f); }
+}
+
+.heart-line {
+  stroke-dasharray: 100;
+  animation: dash 2s linear infinite;
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: -200; }
+}
+
+/* Form Kartu (Tengah) */
+.form-card {
+  width: 440px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 24px;
+  padding: 30px 35px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.form-header h2 {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  background: linear-gradient(to right, #ffffff, #a5b4fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.form-header p {
+  font-size: 11px;
+  color: #a0aec0;
+  margin-top: 4px;
+}
+
+.input-group {
+  margin-bottom: 14px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 11px;
+  margin-bottom: 6px;
+  color: #cbd5e0;
+  font-weight: 600;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  color: #718096;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.input-wrapper input,
+.input-wrapper select {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 13px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.input-wrapper input::placeholder {
+  color: #4a5568;
+}
+
+.input-wrapper select option {
+  background: #1a1c2e;
+  color: #fff;
+}
+
+.input-wrapper input:focus,
+.input-wrapper select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+}
+
+.input-wrapper input:focus + .input-icon,
+.input-wrapper select:focus + .input-icon {
+  color: #6366f1;
+}
+
+/* Checkbox Custom Style */
+.checkbox-group {
+  margin: 16px 0 18px 0;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: 11px;
+  color: #cbd5e0;
+  user-select: none;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 18px;
+  width: 18px;
+  background-color: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+  border-color: #6366f1;
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border-color: #8b5cf6;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.terms-link {
+  color: #00d2ff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+}
+
+/* Tombol Submit */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+  transition: all 0.3s;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(139, 92, 246, 0.5);
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+}
+
+/* Karakter Bintang & Per (Kanan) */
+.star-container {
+  height: 400px;
+}
+
+.star-wrapper {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.click-hint {
+  position: absolute;
+  top: -25px;
+  background: #fdcb6e;
+  color: #2d3436;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  animation: bounceHint 1.5s infinite;
+  z-index: 10;
+}
+
+.robot-hint {
+  background: #00d2ff;
+  color: #0f111a;
+  top: -15px;
+}
+
+@keyframes bounceHint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.star-svg {
+  width: 190px;
+  height: 270px;
+  filter: drop-shadow(0 10px 15px rgba(253, 203, 110, 0.3));
+}
+
+/* ANIMASI LOMPAT JAUH & TINGGI UNTUK BINTANG PER */
+.star-wrapper.jumping .star-body {
+  animation: starHighJump 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.star-wrapper.jumping .spring-path {
+  animation: springSuperBounce 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes starHighJump {
+  0% { transform: translateY(0) scale(1); }
+  20% { transform: translateY(45px) scale(1.1, 0.7); } /* Menekan per ke bawah */
+  45% { transform: translateY(-180px) scale(0.9, 1.2) rotate(-15deg); } /* Meloncat tinggi ke atas */
+  65% { transform: translateY(-190px) scale(1) rotate(15deg); } /* Titik tertinggi */
+  85% { transform: translateY(10px) scale(1.05, 0.95); } /* Mendarat */
+  100% { transform: translateY(0) scale(1) rotate(0deg); }
+}
+
+@keyframes springSuperBounce {
+  0% { transform: scaleY(1); transform-origin: bottom; }
+  20% { transform: scaleY(0.25); transform-origin: bottom; } /* Per tertekan sangat rendah */
+  45% { transform: scaleY(1.8); transform-origin: bottom; } /* Per merenggang tinggi */
+  65% { transform: scaleY(1.2); transform-origin: bottom; }
+  85% { transform: scaleY(0.7); transform-origin: bottom; }
+  100% { transform: scaleY(1); transform-origin: bottom; }
+}
+
+/* Pop-up Notifikasi Sukses (Hijau) */
+.notification-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.notification-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.notification-card {
+  background: #0f2d1e;
+  border: 2px solid #10b981;
+  border-radius: 20px;
+  padding: 35px 30px;
+  width: 380px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(16, 185, 129, 0.3);
+  transform: scale(0.7);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.notification-overlay.active .notification-card {
+  transform: scale(1);
+}
+
+.notif-icon-box {
+  font-size: 55px;
+  color: #10b981;
+  margin-bottom: 15px;
+  animation: pulseIcon 1.5s infinite;
+}
+
+@keyframes pulseIcon {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.notification-card h3 {
+  color: #10b981;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.notification-card p {
+  color: #d1fae5;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.notif-btn {
+  background: #10b981;
+  color: #064e3b;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.notif-btn:hover {
+  background: #34d399;
+}
+
+@media (max-width: 1024px) {
+  .main-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .robot-container, .star-container {
+    height: auto;
+  }
+}
